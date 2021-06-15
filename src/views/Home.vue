@@ -1,30 +1,25 @@
 <template>
   <div class="home">
-
-    <input type="text" v-model="search">
-    <p>Search item - {{search}}</p>
-    <div v-for="name in filteredNames" :key="name">
-      {{name}}
-    </div>
+    <PostLists :posts="posts"></PostLists>
   </div>
+  
 </template>
 
 <script>
 
+import PostLists from '../components/PostLists'
 import { computed, ref } from '@vue/runtime-core'
 
 export default {
+  components: { PostLists },
   setup(){
-    let names=ref(["aung aung","kyaw kyaw","su su","mg mg"]);
-    let search=ref("");
+    let posts=ref([
+      {title:"post title 1",body:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi similique exercitationem dolor illo temporibus repellat ea quisquam laborum explicabo minus iure accusantium dolorum veniam ipsam officiis animi, saepe est quasi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi similique exercitatiLorem ipsum dolor sit amet consectetur adipisicing elit. Modi similique exercitationem dolor illo temporibus repellat ea quisquam laborum explicabo minus iure accusantium dolorum veniam ipsam officiis animi, saepe est quasi.onem dolor illo temporibus repellat ea quisquam laborum explicabo minus iure accusantium dolorum veniam ipsam officiis animi, saepe est quasi.",id:"1"},
+      
+      {title:"post title 2",body:"lorem ipsum",id:"2"},
+    ])
 
-    let filteredNames=computed(()=>{
-      return names.value.filter(name=>{
-        return name.includes(search.value)
-      })
-    })
-
-    return {names,search,filteredNames};
+    return {posts};
   }
 }
 </script>
