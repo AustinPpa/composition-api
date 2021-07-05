@@ -14,33 +14,17 @@
 </template>
 
 <script>
-
+import getPosts from "../composables/getPosts"
 import PostLists from '../components/PostLists'
-import { computed, ref } from '@vue/runtime-core'
 
 export default {
   components: { PostLists },
   setup(){
-    let posts=ref([]);
-    let error=ref("");
-    let load=async()=>{
-      try{
-        let response = await fetch("http://localhost:3000/posts")
-        if(response.status===404){
-          throw new Error ("not found url")
-        }
-        let datas = await response.json();
-        
-        posts.value=datas
+    //composable function
+    let {posts,error,load}=getPosts() //{posts,error,load}
 
-      }catch(err){
-        // console.log(error.message)
-        error.value=err.message
-      }
-      
-     
-    }
     load();
+    
     return {posts,error};
   }
 }
